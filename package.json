@@ -1,0 +1,21 @@
+{
+  "name": "level_gauge_server",
+  "version": "0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "osprey": "^0.3.2",
+    "redis": "^2.6.2",
+    "uuid-1345": "^0.99.6"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0",
+    "supertest": "^2.0.0",
+    "supertest-as-promised": "^4.0.0"
+  }
+}
