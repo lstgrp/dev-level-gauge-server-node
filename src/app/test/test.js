@@ -3,7 +3,7 @@
 const assert = require('assert');
 const Promise = require('bluebird');
 const request = require('supertest-as-promised');
-const Server = require('../server');
+const Server = require('../../server');
 
 let server;
 const cot = (gen) => Promise.coroutine(gen)();
@@ -101,4 +101,48 @@ describe('Handler test, successful', () => {
       assert(false, `Expected /close handler to succeed, but got error: ${e}`)
     });
   })
+});
+
+describe('Handler test, failure', () => {
+  before(done => {
+    server = Server.create();
+    server.initWithRAML().then(() => {
+      server.start();
+      done()
+    });
+  });
+
+  beforeEach(done => server.di.redis.flushdb(done));
+
+  after(done => {
+    server.tearDown();
+    server = null;
+    done();
+  });
+
+  it('/device, missing field "device.serial" in request body', () => {
+    return cot(function *() {
+      const sampleDeviceData = {
+        device: {
+          name: 'test_name',
+        },
+      };
+
+      const res = yield makeRequest('post', '/device', sampleDeviceData, 400);
+      assert(res.statusCode === 400, 'Expected to fail with status code 40');
+    });
+  });
+
+  it('/store, missing field "deviceid" in request body', () => {
+    return cot(function *() {
+      const sampleLevelGaugeData = {
+        time: Date.now(),
+        event: 0,
+        level: 1,
+      };
+
+      const res = yield makeRequest('post', '/store', sampleLevelGaugeData, 400);
+      assert(res.statusCode === 400, 'Expected to fail with status code 404');
+    });
+  });
 });
