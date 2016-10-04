@@ -3,7 +3,7 @@
 const assert = require('assert');
 const Promise = require('bluebird');
 const request = require('supertest-as-promised');
-const Server = require('./server');
+const Server = require('../server');
 
 let server;
 const cot = (gen) => Promise.coroutine(gen)();
