@@ -2,7 +2,7 @@
 
 const UUID = require('uuid-1345');
 const jwt = require('jsonwebtoken');
-const config = require('./config');
+const config = require('../config/config');
 
 /**
  * Generate device id for given serial code

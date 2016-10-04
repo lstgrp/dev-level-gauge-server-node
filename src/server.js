@@ -5,8 +5,8 @@ const osprey = require('osprey');
 const Promise = require('bluebird');
 const path = require('path');
 const redis = require('redis');
-const handlers = require('./handlers');
-const config = require('./config');
+const handlers = require('./app/handlers/handlers');
+const config = require('./app/config/config');
 
 Promise.promisifyAll(redis.RedisClient.prototype);
 
@@ -24,7 +24,7 @@ class Server {
    * @returns {Promise.<undefined>}
    */
   initWithRAML() {
-    return osprey.loadFile(path.join(__dirname, 'apidoc.raml'), {})
+    return osprey.loadFile(path.join(__dirname, '../apidoc.raml'), {})
       .then((mw) => {
         const app = this.app = express();
         app.use(mw);

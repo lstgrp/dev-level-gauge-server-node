@@ -1,8 +1,8 @@
 'use strict';
 
 const Promise = require('bluebird');
-const config = require('./config');
-const util = require('./util');
+const config = require('../config/config');
+const util = require('../utils/util');
 
 /**
  * Handler for /device
