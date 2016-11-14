@@ -4,6 +4,18 @@ title: Level Gauge Server
 version: v0.1
 mediaType: application/json
 
+/health:
+  get:
+    description: Health check
+    responses:
+      200:
+        description: Server is running ok
+        body:
+          example: |
+            {
+              "status": "ok"
+            }
+
 /device:
   post:
     description: Get token id with given device name and serial code
