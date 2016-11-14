@@ -48,7 +48,7 @@ class Server {
    * On exit the teardown is called.
    */
   start() {
-    this.listener = this.app.listen(config.port, () => {
+    this.listener = this.app.listen(config.port, '0.0.0.0', () => {
       console.log(`Level gauge node server is running on port ${config.port}`);
     });
 
