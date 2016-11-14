@@ -37,6 +37,7 @@ class Server {
         app.post('/store', handlers.storeHandler(di));
         app.post('/retrieve', handlers.retrieveHandler(di));
         app.post('/close', handlers.closeHandler(di));
+        app.get('/health', handlers.healthHandler(di));
 
       }).catch(e => {
       console.log('Error in instantiating server: ', e);

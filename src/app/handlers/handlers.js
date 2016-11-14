@@ -5,6 +5,18 @@ const config = require('../config/config');
 const util = require('../utils/util');
 
 /**
+ * Handler for /health
+ * Ensures server is running
+ * @param di
+ * @returns {function(req, res)}
+ */
+const healthHandler = (di) => {
+  return (req, res) => {
+    res.send({status: 'ok'});
+  };
+};
+
+/**
  * Handler for /device
  * It takes device name and serial and generates a device id and session token
  * @param {DI} di
@@ -104,5 +116,5 @@ const closeHandler = (di) => {
 };
 
 module.exports = {
-  deviceHandler,storeHandler, retrieveHandler, closeHandler
+  deviceHandler,storeHandler, retrieveHandler, closeHandler, healthHandler
 };
