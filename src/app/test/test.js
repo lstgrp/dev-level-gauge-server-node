@@ -9,6 +9,7 @@ let server;
 const cot = (gen) => Promise.coroutine(gen)();
 const makeRequest = (method, path, body, expectedCode) => {
   return request(server.app)[method](path)
+    .set('x-api-token', 'master-token')
     .type('json')
     .send(body)
     .expect(expectedCode)

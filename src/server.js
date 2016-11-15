@@ -27,11 +27,29 @@ class Server {
     return osprey.loadFile(path.join(__dirname, '../apidoc.raml'), {})
       .then((mw) => {
         const app = this.app = express();
-        app.use(mw);
 
         const di = this.di = {
           redis: redis.createClient()
         };
+
+        //
+        // middleware for authentication with header api token
+        //
+        app.use((req, res, next) => {
+          if (req.path === '/device' || req.path === '/health') return next();
+          const token = req.get('x-api-token');
+          if (token) {
+            if (token === 'master-token') return next();
+            di.redis.get(token, (err, reply) => {
+              if (!err && reply) return next();
+              res.status(403).send({status: 'Token is expired'});
+            });
+          } else {
+            res.status(403).send({status: 'No token in header'});
+          }
+        });
+
+        app.use(mw);
 
         app.post('/device', handlers.deviceHandler(di));
         app.post('/store', handlers.storeHandler(di));
