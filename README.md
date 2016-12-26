@@ -9,7 +9,7 @@ Sample API server for BLE Level Gauge application written in Node
 
 # Flow
 - get /health : check available
-- post /device : get token
+- post /device : get token for access
 - post /store : save data
 - post /retrieve : get data
 - post /close : close session
